@@ -1,4 +1,26 @@
 
+function bind() {
+    var boundArgv = Array.prototype.slice.call(arguments, 0);
+    var self = boundArgv.shift();
+    var fn = boundArgv.shift();
+
+    function boundFn() {
+        var args = Array.prototype.slice.call(arguments, 0);
+
+        return fn.apply(self, boundArgv.concat(args));
+    }
+
+    return boundFn;
+}
+
+function subclass(Base, Derived) {
+    function F() { }
+    F.prototype = Base.prototype;
+    Derived.prototype = new F();
+}
+
+//////
+
 function Input() {
     this.K_UP = KeyboardEvent.DOM_VK_UP;
     this.K_DOWN = KeyboardEvent.DOM_VK_DOWN;
@@ -96,7 +118,7 @@ function ActorCollection() {
     this.children = [];
 }
 
-ActorCollection.prototype.__proto__ = Actor.prototype;
+subclass(Actor, ActorCollection);
 
 ActorCollection.prototype.typename = 'ActorCollection';
 
@@ -134,7 +156,7 @@ function Obstruction(x, y, width, height) {
     this.update();
 }
 
-Obstruction.prototype.__proto__ = Actor.prototype;
+subclass(Actor, Obstruction);
 Obstruction.prototype.typename = 'Obstruction';
 
 ///
@@ -148,8 +170,7 @@ function Player(input, root) {
     this.root = root;
 }
 
-Player.prototype.__proto__ = Actor.prototype;
-
+subclass(Actor, Player);
 Player.prototype.typename = 'Player';
 
 Player.prototype.tick = function() {
@@ -201,20 +222,6 @@ Engine.prototype.tick = function() {
 };
 
 ///
-
-function bind() {
-    var boundArgv = Array.prototype.slice.call(arguments, 0);
-    var self = boundArgv.shift();
-    var fn = boundArgv.shift();
-
-    function boundFn() {
-        var args = Array.prototype.slice.call(arguments, 0);
-
-        return fn.apply(self, boundArgv.concat(args));
-    }
-
-    return boundFn;
-}
 
 var input = new Input();
 var r = new ActorCollection();
