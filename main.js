@@ -84,6 +84,7 @@ Actor.prototype.update = function() {
     this.div.style['top'] = this.y;
     this.div.style['width'] = this.width;
     this.div.style['height'] = this.height;
+    this.div.style.zIndex = Math.floor(this.y / 17);
 };
 
 Actor.prototype.traverse = function(fn) {
