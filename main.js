@@ -42,6 +42,7 @@ Input.prototype = {};
 Input.prototype.onKeyDown = function(evt) {
     var kc = evt.keyCode;
     if (this.keyState.hasOwnProperty(kc)) {
+        evt.preventDefault();
         this.keyState[kc] = true;
     }
 };
@@ -168,6 +169,7 @@ function Player(input, root) {
 
     this.input = input;
     this.root = root;
+    this.update();
 }
 
 subclass(Actor, Player);
