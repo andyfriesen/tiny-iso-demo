@@ -189,12 +189,14 @@ Player.prototype.tick = function() {
     }
 
     if (px != this.x || py != this.y) {
-        this.root.traverse(bind(this, touches));
+        if (px >= 0 && py >= 0 && py < TILES.length && px < TILES[py].length && (TILES[py][px] & 3) != 3) {
+            this.root.traverse(bind(this, touches));
 
-        if (result.length == 0) {
-            this.x = px;
-            this.y = py;
-            this.update();
+            if (result.length == 0) {
+                this.x = px;
+                this.y = py;
+                this.update();
+            }
         }
     }
 }
