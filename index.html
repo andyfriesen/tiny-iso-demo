@@ -6,7 +6,11 @@
           height: 32px;
           position: absolute;
           background-color: red;
-     }
+      }
+
+      .actor.player {
+          background: transparent url(diamond.png) 0 0 no-repeat;
+      }
 
       .actor.actorcollection {
           background: inherit;
@@ -46,28 +50,10 @@
     </style>
   </head>
   <body>
-    <div id='map' class="map">
-    </div>
-      <!--div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile sand"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile sand"></div><div class="tile sand"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile sand"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div>
-      <div class="row"><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div><div class="tile grass"></div></div-->
+    <div id='map' class="map"></div>
     <script type="text/javascript" src="main.js"></script>
     <script type="text/javascript" src='map.js'></script>
+    <!--script type="text/javascript" src="freemovement.js"></script-->
+    <script type="text/javascript" src="tilemovement.js"></script>
   </body>
 </html>

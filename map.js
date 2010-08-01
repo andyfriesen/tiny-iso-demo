@@ -1,16 +1,16 @@
 
 TILES = [
-       [1, 1, 1, 1, 1],
-         [1, 1, 1, 1],
-       [1, 11, 1, 8, 1],
-         [1, 0, 1, 1],
-       [12, 1, 1, 1, 1],
-         [12, 1, 1, 1],
-       [12, 12, 4, 11, 2],
-         [12, 12, 12, 2],
-       [17, 12, 12, 12, 1],
-         [17, 12, 14, 1],
-       [17, 17, 14, 1, 11],
+       [ 1,  99,  1,  1,  1],
+         [ 1,  1,  1,  1],
+       [99, 11,  1,  8,  1],
+         [ 1,  0,  1,  1],
+       [12,  1,  1,  1,  1],
+         [12,  1,  1,  1],
+       [12, 12,  4, 11,  2],
+         [12, 12, 12,  2],
+       [17, 12, 12, 12,  1],
+         [17, 12, 14,  1],
+       [17, 17, 14,  1, 11],
 ]
 
 function makeMap(parent, tiles) {
@@ -26,7 +26,6 @@ function makeMap(parent, tiles) {
 
             var cell = document.createElement('div');
             cell.className = 'tile';
-
             cell.style.backgroundPosition = (-xoffset) + "px " + (-yoffset) + "px";
 
             d.appendChild(cell);
