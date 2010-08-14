@@ -115,22 +115,15 @@ Player.prototype.typename = 'Player';
 Player.prototype.tick = function() {
     var px = this.x;
     var py = this.y;
-    var p = [this.x, this.y];
     if (this.input.up()) {
-        p = up(this.x, this.y);
+        py -= 1;
+    } else if (this.input.down()) {
+        py += 1;
+    } else if (this.input.left()) {
+        px -= 1;
+    } else if (this.input.right()) {
+        px += 1;
     }
-    if (this.input.down()) {
-        p = down(this.x, this.y);
-    }
-    if (this.input.left()) {
-        p = left(this.x, this.y);
-    }
-    if (this.input.right()) {
-        p = right(this.x, this.y);
-    }
-
-    px = p[0];
-    py = p[1];
 
     var result = [];
     function touches(node) {
@@ -140,17 +133,26 @@ Player.prototype.tick = function() {
         return true;
     }
 
-    if (px != this.x || py != this.y) {
-        if (px >= 0 && py >= 0 && py < TILES.length && px < TILES[py].length && (TILES[py][px] & 3) != 3) {
-            this.root.traverse(bind(this, touches));
-
-            if (result.length == 0) {
-                this.x = px;
-                this.y = py;
-                this.update();
-            }
-        }
+    if (px == this.x && py == this.y) {
+        console.log('not moving');
+        return;
     }
+
+    console.log('moving');
+
+    /*if (!(px >= 0 && py >= 0 && py < TILES.length && px < TILES[py].length && (TILES[py][px] & 3) != 3)) {
+        return;
+        }*/
+
+    this.root.traverse(bind(this, touches));
+
+    if (result.length != 0) {
+        return;
+    }
+
+    this.x = px;
+    this.y = py;
+    this.update();
 }
 
 ///

@@ -59,11 +59,14 @@ Sprite.prototype.move = function(x, y) {
 }
 
 Sprite.prototype.update = function() {
-    var t = tileToScreen(this.x, this.y);
+    //var t = tileToScreen(this.x, this.y);
 
-    this.div.style['left'] = t[0];
-    this.div.style['top'] = t[1];
+    var x = this.x - this.y;
+    var y = this.x / 2 + this.y / 2;
+
+    this.div.style['left'] = x;
+    this.div.style['top'] = y;
     this.div.style['width'] = this.width;
     this.div.style['height'] = this.height;
-    this.div.style.zIndex = Math.floor(t[1] / 17);
+    this.div.style.zIndex = 9999;//Math.floor(y / 17);
 }
