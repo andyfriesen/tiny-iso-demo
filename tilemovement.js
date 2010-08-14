@@ -1,46 +1,3 @@
-function tileToScreen(x, y) {
-    var sx = x * 64 + 8 + 16;
-    var sy = y * 17 + 16;
-
-    if (y & 1) {
-        sx += 32;
-    }
-
-    return [sx, sy];
-}
-
-function up(x, y) {
-    var p = [x, y - 1];
-    if (!(y & 1)) {
-        p[0] -= 1;
-    }
-    return p;
-}
-
-function down(x, y) {
-    var p = [x, y + 1];
-    if (y & 1) {
-        p[0] += 1;
-    }
-    return p;
-}
-
-function left(x, y) {
-    var p = [x, y + 1];
-    if (!(y & 1)) {
-        p[0] -= 1;
-    }
-    return p;
-}
-
-function right(x, y) {
-    var p = [x, y - 1];
-    if (y & 1) {
-        p[0] += 1;
-    }
-    return p;
-}
-
 function Actor() {
     this.x = 0;
     this.y = 0;
@@ -49,6 +6,9 @@ function Actor() {
 
     this.div = document.createElement('div');
     this.div.className = 'actor';
+
+    this.sprite = new Sprite(this.div, this.x, this.y);
+
     document.body.appendChild(this.div);
 }
 
@@ -60,13 +20,7 @@ Actor.prototype.tick = function() {
 };
 
 Actor.prototype.update = function() {
-    var t = tileToScreen(this.x, this.y);
-
-    this.div.style['left'] = t[0];
-    this.div.style['top'] = t[1];
-    this.div.style['width'] = this.width;
-    this.div.style['height'] = this.height;
-    this.div.style.zIndex = Math.floor(t[1] / 17);
+    this.sprite.move(this.x, this.y);
 };
 
 Actor.prototype.traverse = function(fn) {
