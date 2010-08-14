@@ -26,20 +26,18 @@ function down(x, y) {
 }
 
 function left(x, y) {
-    var p = [x, y];
-    if (!(p[1] & 1)) {
+    var p = [x, y + 1];
+    if (!(y & 1)) {
         p[0] -= 1;
     }
-    p[1] += 1;
     return p;
 }
 
 function right(x, y) {
-    var p = [x, y];
-    if (p[1] & 1) {
+    var p = [x, y - 1];
+    if (y & 1) {
         p[0] += 1;
     }
-    p[1] -= 1;
     return p;
 }
 
