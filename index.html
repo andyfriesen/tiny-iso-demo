@@ -1,6 +1,11 @@
 <html>
   <head>
    <style>
+      body {
+          overflow: hidden;
+          position: fixed;
+      }
+
       .actor {
           width: 32px;
           height: 32px;
@@ -22,7 +27,8 @@
 
       .map {
           overflow-x: hidden;
-          height: 480px;
+          width: 1024px;
+          height: 1024px;
       }
 
       .tile {
@@ -37,8 +43,8 @@
       }
 
       .row {
-         height: 16px;
-         position: relative;
+          height: 16px;
+          position: relative;
       }
 
       .row:nth-child(even) {

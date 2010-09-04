@@ -134,22 +134,38 @@ Player.prototype.tick = function() {
     }
 
     if (px == this.x && py == this.y) {
-        console.log('not moving');
         return;
     }
 
-    console.log('moving');
-
-    /*if (!(px >= 0 && py >= 0 && py < TILES.length && px < TILES[py].length && (TILES[py][px] & 3) != 3)) {
-        return;
-        }*/
-
-    this.root.traverse(bind(this, touches));
-
-    if (result.length != 0) {
+    var tileX = Math.floor(this.x / 32);
+    var tileY = Math.floor(this.y / 16);
+    if (0 && (tileX < 0 ||
+              tileY < 0 ||
+              tileY > TILES.length ||
+              tileX > TILES[tileY].length)
+    ) {
         return;
     }
 
+    //console.log("BLAH " + [tileX, tileY, [TILES[tileY][tileX]]].toSource());
+    //if ((TILES[tileY][tileX] & 3) != 3) {
+        //return;
+    //}
+
+    if (0 && !(px >= 0 &&
+          py >= 0 &&
+          py < TILES.length &&
+          px < TILES[py].length &&
+          (TILES[py][px] & 3) != 3)
+    ) {
+        return;
+    }
+
+    if (0 && result.length != 0) {
+        return;
+    }
+
+    console.log("Player.pos=" + [px,py].toSource());
     this.x = px;
     this.y = py;
     this.update();
@@ -174,9 +190,7 @@ var r = new ActorCollection();
 var e = new Engine(r);
 
 var p = new Player(input, r);
-var o = new Obstruction(16, 256, 192, 16);
 
 r.children.push(p);
-r.children.push(o);
 
 setInterval(bind(e, e.tick), 1 / 30.0);
