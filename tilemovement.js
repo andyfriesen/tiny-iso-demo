@@ -1,4 +1,4 @@
-function Actor() {
+function Actor(parent) {
     this.x = 0;
     this.y = 0;
     this.width = 32;
@@ -9,7 +9,10 @@ function Actor() {
 
     this.sprite = new Sprite(this.div, this.x, this.y);
 
-    document.body.appendChild(this.div);
+    var parentDiv = (typeof parent == 'undefined'
+                     ? document.body
+                     : parent.sprite.div);
+    parentDiv.appendChild(this.div);
 }
 
 Actor.prototype = {};
@@ -100,7 +103,7 @@ Obstruction.prototype.typename = 'Obstruction';
 ///
 
 function Player(input, root) {
-    Actor.call(this);
+    Actor.call(this, root);
 
     this.div.className += ' player';
 
@@ -192,5 +195,8 @@ var e = new Engine(r);
 var p = new Player(input, r);
 
 r.children.push(p);
+r.x = 320;
+r.y = 320;
+r.update();
 
 setInterval(bind(e, e.tick), 1 / 30.0);
