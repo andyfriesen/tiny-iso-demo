@@ -1,13 +1,3 @@
-function tileToScreen(x, y) {
-    var sx = x * 64 + 8 + 16;
-    var sy = y * 16 + 16;
-
-    if (y & 1) {
-        sx += 32;
-    }
-
-    return [sx, sy];
-}
 
 function up(x, y) {
     var p = [x, y - 1];
@@ -77,13 +67,7 @@ Sprite.prototype.getScreenPos = function() {
 }
 
 function getTilePos(x, y) {
-    var tileX = Math.floor(y / 2);
-    var tileY = y;
-
-    tileY -= x;
-    tileX += Math.floor(x / 2);
-
-    return [tileX, tileY];
+    return [x, y];
 }
 
 function ASSERT(f, a, b, result) {
@@ -93,44 +77,22 @@ function ASSERT(f, a, b, result) {
     }
 }
 
-ASSERT(getTilePos, 0, -1, [-1, -1]);
-ASSERT(getTilePos, 0,  0, [ 0,  0]);
-ASSERT(getTilePos, 0,  1, [ 0,  1]);
-ASSERT(getTilePos, 0,  2, [ 1,  2]);
-ASSERT(getTilePos, 0,  3, [ 1,  3]);
-ASSERT(getTilePos, 0,  4, [ 2,  4]);
-ASSERT(getTilePos, 0,  5, [ 2,  5]);
-
-ASSERT(getTilePos, 1, -1, [ 0, -1]);
-ASSERT(getTilePos, 1,  0, [ 0,  0]);
-ASSERT(getTilePos, 1,  1, [ 1,  0]);
-ASSERT(getTilePos, 2,  2, [ 2,  0]);
-ASSERT(getTilePos, 3,  3, [ 3,  0]);
-ASSERT(getTilePos, 4,  4, [ 4,  0]);
-
-/*ASSERT(getTilePos, 1,  0, [ 0,  0]);
-ASSERT(getTilePos, 1,  2, [ 1,  2]);
-ASSERT(getTilePos, 1,  3, [ 1,  3]);
-ASSERT(getTilePos, 1,  4, [ 2,  4]);
-ASSERT(getTilePos, 1,  5, [ 2,  5]);*/
-
 Sprite.prototype.getTilePos = function() {
-    var x = Math.floor(this.x / 32);
-    var y = Math.floor(this.y / 32);
+    var x = Math.round(this.x / 32);
+    var y = Math.round(this.y / 32);
 
     var tp = getTilePos(x, y);
 
-    var stx = tileToScreen(tp[0], tp[1]);
+    var stx = map.tileToScreen(tp[0], tp[1]);
 
     if (oldX != stx[0] || oldY != stx[1]) {
         oldX = stx[0];
         oldY = stx[1];
-
-        console.log([[x, y], tp].toSource());
+        console.log("getTilePos: " + [[this.x, this.y], tp, stx].toSource());
     }
 
-    marker.style.left = stx[0] + 8;
-    marker.style.top = stx[1] + 22;
+    marker.style.left = stx[0] + 32;
+    marker.style.top = stx[1] + 16;
 }
 
 Sprite.prototype.update = function() {

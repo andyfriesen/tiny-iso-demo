@@ -84,6 +84,17 @@ ActorCollection.prototype.tick = function() {
 
 ///
 
+function RootActor() {
+    ActorCollection.call(this);
+}
+
+subclass(ActorCollection, RootActor);
+
+RootActor.prototype.update = function() {
+}
+
+///
+
 function Obstruction(x, y, width, height) {
     Actor.call(this);
 
@@ -168,7 +179,6 @@ Player.prototype.tick = function() {
         return;
     }
 
-    console.log("Player.pos=" + [px,py].toSource());
     this.x = px;
     this.y = py;
     this.update();
@@ -188,15 +198,19 @@ Engine.prototype.tick = function() {
 
 ///
 
+var map = new Map(document.getElementById('map'), TILES);
+
 var input = new Input();
-var r = new ActorCollection();
+var r = new RootActor();
 var e = new Engine(r);
 
 var p = new Player(input, r);
 
+var origin = map.getScreenOrigin();
 r.children.push(p);
-r.x = 320;
-r.y = 320;
+r.div.style.left = origin[0] + 'px';
+r.div.style.top = origin[1] + 'px';
 r.update();
+delete origin;
 
 setInterval(bind(e, e.tick), 1 / 30.0);

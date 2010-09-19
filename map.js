@@ -1,4 +1,7 @@
 
+TILE_SCREEN_WIDTH = 64;
+TILE_SCREEN_HEIGHT = 32;
+
 TILES = [
        [ 3,  3,  1,  1,  1,  1,  3,  1,  1,  1],
        [ 3,  1,  1,  1,  1,  1,  1,  1,  1,  1],
@@ -23,7 +26,10 @@ TILES = [
        [17, 17, 14,  1, 11, 17, 17, 14,  1, 11],
 ];
 
-function makeMap(parent, tiles) {
+function Map(parent, tiles) {
+    this.parent = parent;
+    this.tiles = tiles;
+
     var width = tiles[0].length;
     var height = tiles.length;
 
@@ -66,4 +72,24 @@ function makeMap(parent, tiles) {
     }
 }
 
-makeMap(document.getElementById('map'), TILES);
+Map.prototype.getScreenOrigin = function() {
+    var width = this.tiles[0].length;
+    var height = this.tiles.length;
+    var longer = Math.max(width, height);
+
+    var xOffset = xOffset = 32 * (longer - 1);
+
+    return [xOffset, 0];
+}
+
+Map.prototype.tileToScreen = function(x, y) {
+    var sx = x * TILE_SCREEN_WIDTH / 2;
+    var sy = -x * TILE_SCREEN_HEIGHT / 2;
+
+    sx += y * TILE_SCREEN_WIDTH / 2;
+    sy += y * TILE_SCREEN_HEIGHT / 2;
+
+    origin = this.getScreenOrigin();
+
+    return [sx + origin[0], sy + origin[1]];
+}
