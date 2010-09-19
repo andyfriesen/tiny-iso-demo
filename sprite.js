@@ -31,10 +31,12 @@ function right(x, y) {
     return p;
 }
 
-function Sprite(div, x, y) {
+function Sprite(div, x, y, width, height) {
     this.div = div;
     this.x = x || 0;
     this.y = y || 0;
+    this.width = width || 0;
+    this.height = height || 0;
 }
 
 Sprite.prototype.DOWN = 'DOWN';
@@ -62,8 +64,8 @@ var oldX = 0;
 var oldY = 0;
 
 Sprite.prototype.getScreenPos = function() {
-    return [this.y + this.x,
-            -this.x / 2 + this.y / 2];
+    return [this.x - this.y,
+            this.y / 2 + this.x / 2];
 }
 
 function getTilePos(x, y) {
@@ -88,7 +90,6 @@ Sprite.prototype.getTilePos = function() {
     if (oldX != stx[0] || oldY != stx[1]) {
         oldX = stx[0];
         oldY = stx[1];
-        console.log("getTilePos: " + [[this.x, this.y], tp, stx].toSource());
     }
 
     marker.style.left = stx[0] + 32;
@@ -99,9 +100,9 @@ Sprite.prototype.update = function() {
     this.getTilePos();
 
     var p = this.getScreenPos();
-    this.div.style['left'] = p[0];
-    this.div.style['top'] = p[1];
-    this.div.style['width'] = this.width;
-    this.div.style['height'] = this.height;
+    this.div.style.left = p[0] + this.width / 2;
+    this.div.style.top = p[1] + this.height / 2;
+    this.div.style.width = this.width;
+    this.div.style.height = this.height;
     this.div.style.zIndex = 9999;//Math.floor(y / 16);
 }

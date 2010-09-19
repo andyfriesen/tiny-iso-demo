@@ -3,9 +3,9 @@ TILE_SCREEN_WIDTH = 64;
 TILE_SCREEN_HEIGHT = 32;
 
 TILES = [
-       [ 3,  3,  1,  1,  1,  1,  3,  1,  1,  1],
-       [ 3,  1,  1,  1,  1,  1,  1,  1,  1,  1],
-       [ 1,  1, 11,  8,  1,  3,  1, 11,  8,  1],
+       [ 1,  3,  1,  1,  1,  1,  3,  1,  1,  1],
+       [ 1,  3,  3,  1,  1,  1,  1,  1,  1,  1],
+       [ 1,  3, 11,  8,  1,  3,  1, 11,  8,  1],
        [ 1,  0,  1,  1,  1,  0,  1,  1,  1,  1],
        [12,  1,  1,  1,  1, 12,  1,  1,  1,  1],
        [12,  1,  1,  1, 12,  1,  1,  1,  1,  1],
@@ -84,9 +84,9 @@ Map.prototype.getScreenOrigin = function() {
 
 Map.prototype.tileToScreen = function(x, y) {
     var sx = x * TILE_SCREEN_WIDTH / 2;
-    var sy = -x * TILE_SCREEN_HEIGHT / 2;
+    var sy = x * TILE_SCREEN_HEIGHT / 2;
 
-    sx += y * TILE_SCREEN_WIDTH / 2;
+    sx -= y * TILE_SCREEN_WIDTH / 2;
     sy += y * TILE_SCREEN_HEIGHT / 2;
 
     origin = this.getScreenOrigin();

@@ -7,7 +7,7 @@ function Actor(parent) {
     this.div = document.createElement('div');
     this.div.className = 'actor';
 
-    this.sprite = new Sprite(this.div, this.x, this.y);
+    this.sprite = new Sprite(this.div, this.x, this.y, this.width, this.height);
 
     var parentDiv = (typeof parent == 'undefined'
                      ? document.body
@@ -127,16 +127,17 @@ subclass(Actor, Player);
 Player.prototype.typename = 'Player';
 
 Player.prototype.tick = function() {
+    SPEED = 32;
     var px = this.x;
     var py = this.y;
     if (this.input.up()) {
-        py -= 1;
+        py -= SPEED;
     } else if (this.input.down()) {
-        py += 1;
+        py += SPEED;
     } else if (this.input.left()) {
-        px -= 1;
+        px -= SPEED;
     } else if (this.input.right()) {
-        px += 1;
+        px += SPEED;
     }
 
     var result = [];
@@ -151,31 +152,21 @@ Player.prototype.tick = function() {
         return;
     }
 
-    var tileX = Math.floor(this.x / 32);
-    var tileY = Math.floor(this.y / 16);
-    if (0 && (tileX < 0 ||
-              tileY < 0 ||
-              tileY > TILES.length ||
-              tileX > TILES[tileY].length)
+    var tileX = Math.floor(px / SPEED);
+    var tileY = Math.floor(py / SPEED);
+    console.log("Tile pos: " + [Math.floor(this.x / SPEED),
+                                Math.floor(this.y / SPEED),
+                                tileX,
+                                tileY].toSource());
+    if ((tileX < 0 ||
+         tileY < 0 ||
+         tileY >= TILES.length ||
+         tileX >= TILES[tileY].length)
     ) {
         return;
     }
 
-    //console.log("BLAH " + [tileX, tileY, [TILES[tileY][tileX]]].toSource());
-    //if ((TILES[tileY][tileX] & 3) != 3) {
-        //return;
-    //}
-
-    if (0 && !(px >= 0 &&
-          py >= 0 &&
-          py < TILES.length &&
-          px < TILES[py].length &&
-          (TILES[py][px] & 3) != 3)
-    ) {
-        return;
-    }
-
-    if (0 && result.length != 0) {
+    if ((3 == (TILES[tileY][tileX] & 3))) {
         return;
     }
 

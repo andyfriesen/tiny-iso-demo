@@ -56,7 +56,7 @@ Input.prototype.onKeyUp = function(evt) {
 
 Input.prototype.get = function(code) {
     var result = this.keyState[code];
-    //this.keyState[code] = false;
+    this.keyState[code] = false;
     return result;
 };
 
