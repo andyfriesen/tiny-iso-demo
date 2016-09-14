@@ -26,70 +26,72 @@ TILES = [
        [17, 17, 14,  1, 11, 17, 17, 14,  1, 11],
 ];
 
-function Map(parent, tiles) {
-    this.parent = parent;
-    this.tiles = tiles;
+class Map {
+    constructor(parent, tiles) {
+        this.parent = parent;
+        this.tiles = tiles;
 
-    var width = tiles[0].length;
-    var height = tiles.length;
+        var width = tiles[0].length;
+        var height = tiles.length;
 
-    var longer = Math.max(width, height);
-    var shorter = Math.min(width, height);
+        var longer = Math.max(width, height);
+        var shorter = Math.min(width, height);
 
-    var rowCount = width + height;
+        var rowCount = width + height;
 
-    for (var row = 0; row < rowCount; ++row) {
-        var rowDiv = document.createElement('div');
-        rowDiv.className = 'row';
-        rowDiv.style.zIndex = row;
-        rowDiv.style.position = 'relative';
+        for (var row = 0; row < rowCount; ++row) {
+            var rowDiv = document.createElement('div');
+            rowDiv.className = 'row';
+            rowDiv.style.zIndex = row;
+            rowDiv.style.position = 'relative';
 
-        var xOffset = (row < longer
-                       ? xOffset = 32 * (longer - row - 1)
-                       : xOffset = 32 * (row - longer + 1));
-        rowDiv.style.left = xOffset + 'px';
+            var xOffset = (row < longer
+                        ? xOffset = 32 * (longer - row - 1)
+                        : xOffset = 32 * (row - longer + 1));
+            rowDiv.style.left = xOffset + 'px';
 
-        var y = row;
-        var x = 0;
-        for (var _ = width + height; _; --_) {
-            if (x >= 0 && y >= 0 && y < tiles.length && x < tiles[y].length) {
-                var index = tiles[y][x];
+            var y = row;
+            var x = 0;
+            for (var _ = width + height; _; --_) {
+                if (x >= 0 && y >= 0 && y < tiles.length && x < tiles[y].length) {
+                    var index = tiles[y][x];
 
-                var xoffset = (index % 4) * 96;
-                var yoffset = Math.floor(index / 4) * 64;
-                var colDiv = document.createElement('div');
-                colDiv.className = 'tile';
-                colDiv.style.backgroundPosition = (-xoffset) + 'px ' + (-yoffset) + 'px';
+                    var xoffset = (index % 4) * 96;
+                    var yoffset = Math.floor(index / 4) * 64;
+                    var colDiv = document.createElement('div');
+                    colDiv.className = 'tile';
+                    colDiv.style.backgroundPosition = (-xoffset) + 'px ' + (-yoffset) + 'px';
 
-                rowDiv.appendChild(colDiv);
+                    rowDiv.appendChild(colDiv);
+                }
+
+                ++x;
+                --y;
             }
 
-            ++x;
-            --y;
+            parent.appendChild(rowDiv);
         }
-
-        parent.appendChild(rowDiv);
     }
-}
 
-Map.prototype.getScreenOrigin = function() {
-    var width = this.tiles[0].length;
-    var height = this.tiles.length;
-    var longer = Math.max(width, height);
+    getScreenOrigin() {
+        var width = this.tiles[0].length;
+        var height = this.tiles.length;
+        var longer = Math.max(width, height);
 
-    var xOffset = xOffset = 32 * (longer - 1);
+        var xOffset = xOffset = 32 * (longer - 1);
 
-    return [xOffset, 0];
-}
+        return [xOffset, 0];
+    }
 
-Map.prototype.tileToScreen = function(x, y) {
-    var sx = x * TILE_SCREEN_WIDTH / 2;
-    var sy = x * TILE_SCREEN_HEIGHT / 2;
+    tileToScreen(x, y) {
+        var sx = x * TILE_SCREEN_WIDTH / 2;
+        var sy = x * TILE_SCREEN_HEIGHT / 2;
 
-    sx -= y * TILE_SCREEN_WIDTH / 2;
-    sy += y * TILE_SCREEN_HEIGHT / 2;
+        sx -= y * TILE_SCREEN_WIDTH / 2;
+        sy += y * TILE_SCREEN_HEIGHT / 2;
 
-    origin = this.getScreenOrigin();
+        origin = this.getScreenOrigin();
 
-    return [sx + origin[0], sy + origin[1]];
+        return [sx + origin[0], sy + origin[1]];
+    }
 }
