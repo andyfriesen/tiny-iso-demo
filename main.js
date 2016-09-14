@@ -22,10 +22,10 @@ function subclass(Base, Derived) {
 //////
 
 function Input() {
-    this.K_UP = KeyboardEvent.DOM_VK_UP;
-    this.K_DOWN = KeyboardEvent.DOM_VK_DOWN;
-    this.K_LEFT = KeyboardEvent.DOM_VK_LEFT;
-    this.K_RIGHT = KeyboardEvent.DOM_VK_RIGHT;
+     this.K_UP = 38;
+     this.K_DOWN = 40;
+     this.K_LEFT = 37;
+     this.K_RIGHT = 39;
 
     this.keyState = {};
     this.keyState[this.K_UP] = false;

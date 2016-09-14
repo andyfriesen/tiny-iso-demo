@@ -154,10 +154,10 @@ Player.prototype.tick = function() {
 
     var tileX = Math.floor(px / SPEED);
     var tileY = Math.floor(py / SPEED);
-    console.log("Tile pos: " + [Math.floor(this.x / SPEED),
+    console.log("Tile pos: ", Math.floor(this.x / SPEED),
                                 Math.floor(this.y / SPEED),
                                 tileX,
-                                tileY].toSource());
+                                tileY);
     if ((tileX < 0 ||
          tileY < 0 ||
          tileY >= TILES.length ||
