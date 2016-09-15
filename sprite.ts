@@ -31,7 +31,7 @@ function right(x, y) {
     return p;
 }
 
-class Sprite {
+export class Sprite {
     constructor(div, x, y, width, height) {
         this.div = div;
         this.x = x || 0;

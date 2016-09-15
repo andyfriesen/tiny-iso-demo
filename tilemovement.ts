@@ -1,4 +1,6 @@
 
+import { Sprite } from './sprite';
+
 class Actor {
     constructor(parent) {
         this.x = 0;
@@ -194,11 +196,11 @@ var e = new Engine(r);
 
 var p = new Player(input, r);
 
-var origin = map.getScreenOrigin();
-r.children.push(p);
-r.div.style.left = origin[0] + 'px';
-r.div.style.top = origin[1] + 'px';
-r.update();
-delete origin;
-
+{
+    let origin = map.getScreenOrigin();
+    r.children.push(p);
+    r.div.style.left = origin[0] + 'px';
+    r.div.style.top = origin[1] + 'px';
+    r.update();
+}
 setInterval(() => e.tick(), 1 / 30.0);
