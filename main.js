@@ -1,18 +1,3 @@
-
-function bind() {
-    var boundArgv = Array.prototype.slice.call(arguments, 0);
-    var self = boundArgv.shift();
-    var fn = boundArgv.shift();
-
-    function boundFn() {
-        var args = Array.prototype.slice.call(arguments, 0);
-
-        return fn.apply(self, boundArgv.concat(args));
-    }
-
-    return boundFn;
-}
-
 function subclass(Base, Derived) {
     function F() { }
     F.prototype = Base.prototype;
@@ -34,8 +19,8 @@ class Input {
         this.keyState[this.K_LEFT] = false;
         this.keyState[this.K_RIGHT] = false;
 
-        document.addEventListener('keydown', bind(this, this.onKeyDown), false);
-        document.addEventListener('keyup', bind(this, this.onKeyUp), false);
+        document.addEventListener('keydown', (evt) => this.onKeyDown(evt), false);
+        document.addEventListener('keyup', (evt) => this.onKeyUp(evt), false);
     }
 
     onKeyDown(evt) {

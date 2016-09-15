@@ -90,20 +90,21 @@ class RootActor extends ActorCollection {
 
 ///
 
-function Obstruction(x, y, width, height) {
-    Actor.call(this);
+class Obstruction extends Actor {
+    constructor(x, y, width, height) {
+        super();
 
-    this.x = x;
-    this.y = y;
-    this.width = width;
-    this.height = height;
+        this.x = x;
+        this.y = y;
+        this.width = width;
+        this.height = height;
 
-    this.div.className += ' obstruction';
+        this.div.className += ' obstruction';
 
-    this.update();
+        this.update();
+    }
 }
 
-subclass(Actor, Obstruction);
 Obstruction.prototype.typename = 'Obstruction';
 
 ///
@@ -200,4 +201,4 @@ r.div.style.top = origin[1] + 'px';
 r.update();
 delete origin;
 
-setInterval(bind(e, e.tick), 1 / 30.0);
+setInterval(() => e.tick(), 1 / 30.0);
