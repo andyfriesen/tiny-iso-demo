@@ -1,8 +1,8 @@
 
-TILE_SCREEN_WIDTH = 64;
-TILE_SCREEN_HEIGHT = 32;
+export const TILE_SCREEN_WIDTH = 64;
+export const TILE_SCREEN_HEIGHT = 32;
 
-TILES = [
+export const TILES = [
        [ 1,  3,  1,  1,  1,  1,  3,  1,  1,  1],
        [ 1,  3,  3,  1,  1,  1,  1,  1,  1,  1],
        [ 1,  3, 11,  8,  1,  3,  1, 11,  8,  1],
@@ -26,7 +26,7 @@ TILES = [
        [17, 17, 14,  1, 11, 17, 17, 14,  1, 11],
 ];
 
-class Map {
+export class Map {
     constructor(parent, tiles) {
         this.parent = parent;
         this.tiles = tiles;

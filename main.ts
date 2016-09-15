@@ -1,10 +1,6 @@
-function subclass(Base, Derived) {
-    function F() { }
-    F.prototype = Base.prototype;
-    Derived.prototype = new F();
-}
-
-//////
+import * as map from "map";
+import * as sprite from "sprite";
+import * as tilemovement from "tilemovement";
 
 class Input {
     constructor() {
@@ -49,3 +45,20 @@ class Input {
     up() { return this.get(this.K_UP); };
     down() { return this.get(this.K_DOWN); };
 }
+
+var globalMap = new map.Map(document.getElementById('map'), map.TILES);
+
+var input = new Input();
+var r = new tilemovement.RootActor();
+var e = new tilemovement.Engine(r);
+
+var p = new tilemovement.Player(input, r);
+
+{
+    let origin = map.getScreenOrigin();
+    r.children.push(p);
+    r.div.style.left = origin[0] + 'px';
+    r.div.style.top = origin[1] + 'px';
+    r.update();
+}
+setInterval(() => e.tick(), 1 / 30.0);

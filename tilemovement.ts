@@ -1,7 +1,8 @@
 
 import { Sprite } from './sprite';
+import { TILES } from "map";
 
-class Actor {
+export class Actor {
     constructor(parent) {
         this.x = 0;
         this.y = 0;
@@ -54,7 +55,7 @@ Actor.prototype.typename = 'Actor';
 
 ///
 
-class ActorCollection extends Actor {
+export class ActorCollection extends Actor {
     constructor() {
         super();
         this.div.className += ' actorcollection';
@@ -85,14 +86,14 @@ ActorCollection.prototype.typename = 'ActorCollection';
 
 ///
 
-class RootActor extends ActorCollection {
+export class RootActor extends ActorCollection {
     update() {
     }
 }
 
 ///
 
-class Obstruction extends Actor {
+export class Obstruction extends Actor {
     constructor(x, y, width, height) {
         super();
 
@@ -175,32 +176,12 @@ Player.prototype.typename = 'Player';
 
 ///
 
-function Engine(root) {
-    this.root = root;
+class Engine {
+    constructor(root) {
+        this.root = root;
+    }
+
+    tick() {
+        this.root.tick();
+    }
 }
-
-Engine.prototype = {};
-
-Engine.prototype.tick = function() {
-    this.root.tick();
-};
-
-///
-
-
-var map = new Map(document.getElementById('map'), TILES);
-
-var input = new Input();
-var r = new RootActor();
-var e = new Engine(r);
-
-var p = new Player(input, r);
-
-{
-    let origin = map.getScreenOrigin();
-    r.children.push(p);
-    r.div.style.left = origin[0] + 'px';
-    r.div.style.top = origin[1] + 'px';
-    r.update();
-}
-setInterval(() => e.tick(), 1 / 30.0);

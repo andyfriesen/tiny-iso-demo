@@ -32,7 +32,8 @@ function right(x, y) {
 }
 
 export class Sprite {
-    constructor(div, x, y, width, height) {
+    constructor(map, div, x, y, width, height) {
+        this.map = map;
         this.div = div;
         this.x = x || 0;
         this.y = y || 0;
@@ -57,7 +58,7 @@ export class Sprite {
 
         var tp = getTilePos(x, y);
 
-        var stx = map.tileToScreen(tp[0], tp[1]);
+        var stx = this.map.tileToScreen(tp[0], tp[1]);
 
         if (oldX != stx[0] || oldY != stx[1]) {
             oldX = stx[0];
