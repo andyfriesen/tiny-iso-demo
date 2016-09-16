@@ -90,7 +90,7 @@ export class Map {
         sx -= y * TILE_SCREEN_WIDTH / 2;
         sy += y * TILE_SCREEN_HEIGHT / 2;
 
-        origin = this.getScreenOrigin();
+        let origin = this.getScreenOrigin();
 
         return [sx + origin[0], sy + origin[1]];
     }

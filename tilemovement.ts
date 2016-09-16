@@ -57,7 +57,7 @@ Actor.prototype.typename = 'Actor';
 
 export class ActorCollection extends Actor {
     constructor() {
-        super();
+        super(undefined);
         this.div.className += ' actorcollection';
         this.children = [];
     }
@@ -112,7 +112,7 @@ Obstruction.prototype.typename = 'Obstruction';
 
 ///
 
-class Player extends Actor {
+export class Player extends Actor {
     constructor(input, root) {
         super(root);
         this.div.className += ' player';
@@ -176,7 +176,7 @@ Player.prototype.typename = 'Player';
 
 ///
 
-class Engine {
+export class Engine {
     constructor(root) {
         this.root = root;
     }
