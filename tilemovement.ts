@@ -1,9 +1,17 @@
 
-import { Sprite } from './sprite';
+import { Input } from "input";
+import { Sprite } from 'sprite';
 import { TILES } from "map";
 
 export class Actor {
-    constructor(parent) {
+    x:number;
+    y:number;
+    width:number;
+    height:number;
+    div:HTMLElement;
+    sprite:Sprite;
+
+    constructor(parent:Actor) {
         this.x = 0;
         this.y = 0;
         this.width = 32;
@@ -21,24 +29,23 @@ export class Actor {
     }
 
     tick() {
-    };
+    }
 
     update() {
         this.sprite.move(this.x, this.y);
-    };
+    }
 
-    traverse(fn) {
+    traverse<T>(fn: (a:Actor)=>T) {
         return fn(this);
     }
 
-    touches(x, y, w, h) {
+    touches(x:number, y:number, w:number, h:number):boolean {
         var right = this.x + this.width;
         var bottom = this.y + this.height;
 
         var oright = x + w;
         var obottom = y + h;
 
-        var result;
         if ((this.x >= oright ||
             this.y >= obottom ||
             x >= right ||
@@ -56,13 +63,15 @@ Actor.prototype.typename = 'Actor';
 ///
 
 export class ActorCollection extends Actor {
+    children:Actor[];
+
     constructor() {
         super(undefined);
         this.div.className += ' actorcollection';
-        this.children = [];
+        this.children = [] as Actor[];
     }
 
-    traverse(fn) {
+    traverse<T>(fn: (a:Actor)=>T):T {
         for (var i = 0; i < this.children.length; i++) {
             var result = this.children[i].traverse(fn);
             if (!result) {
@@ -71,7 +80,7 @@ export class ActorCollection extends Actor {
         }
     }
 
-    touches(x, y, w, h) {
+    touches(x:number, y:number, w:number, h:number) {
         return false;
     }
 
@@ -94,8 +103,8 @@ export class RootActor extends ActorCollection {
 ///
 
 export class Obstruction extends Actor {
-    constructor(x, y, width, height) {
-        super();
+    constructor(x:number, y:number, width:number, height:number) {
+        super(undefined);
 
         this.x = x;
         this.y = y;
@@ -113,7 +122,10 @@ Obstruction.prototype.typename = 'Obstruction';
 ///
 
 export class Player extends Actor {
-    constructor(input, root) {
+    input:Input;
+    root:Actor;
+
+    constructor(input:Input, root:Actor) {
         super(root);
         this.div.className += ' player';
 
@@ -123,7 +135,7 @@ export class Player extends Actor {
     }
 
     tick() {
-        let SPEED = 32;
+        const SPEED = 32;
         var px = this.x;
         var py = this.y;
         if (this.input.up()) {
@@ -136,8 +148,8 @@ export class Player extends Actor {
             px += SPEED;
         }
 
-        var result = [];
-        function touches(node) {
+        let result:Actor[] = [];
+        function touches(node:Actor) {
             if (node != this && node.touches(px, py, this.width, this.height)) {
                 result.push(node);
             }
@@ -177,7 +189,9 @@ Player.prototype.typename = 'Player';
 ///
 
 export class Engine {
-    constructor(root) {
+    root:Actor;
+
+    constructor(root:Actor) {
         this.root = root;
     }
 

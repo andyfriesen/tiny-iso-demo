@@ -3,7 +3,7 @@ import { Map, TILES } from "map";
 import { RootActor, Engine, Player } from "tilemovement";
 import { Input } from "input";
 
-export let map = new Map(document.getElementById('map'), TILES);
+export let map = new Map(document.getElementById('map') as HTMLDivElement, TILES);
 
 export let input = new Input();
 

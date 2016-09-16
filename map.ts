@@ -2,7 +2,7 @@
 export const TILE_SCREEN_WIDTH = 64;
 export const TILE_SCREEN_HEIGHT = 32;
 
-export const TILES = [
+export const TILES : number[][] = [
        [ 1,  3,  1,  1,  1,  1,  3,  1,  1,  1],
        [ 1,  3,  3,  1,  1,  1,  1,  1,  1,  1],
        [ 1,  3, 11,  8,  1,  3,  1, 11,  8,  1],
@@ -27,7 +27,10 @@ export const TILES = [
 ];
 
 export class Map {
-    constructor(parent, tiles) {
+    parent:HTMLDivElement;
+    tiles:number[][];
+
+    constructor(parent:HTMLDivElement, tiles:number[][]) {
         this.parent = parent;
         this.tiles = tiles;
 
@@ -45,9 +48,10 @@ export class Map {
             rowDiv.style.zIndex = row;
             rowDiv.style.position = 'relative';
 
-            var xOffset = (row < longer
-                        ? xOffset = 32 * (longer - row - 1)
-                        : xOffset = 32 * (row - longer + 1));
+            let xOffset = (
+                row < longer
+                    ? 32 * (longer - row - 1)
+                    : 32 * (row - longer + 1));
             rowDiv.style.left = xOffset + 'px';
 
             var y = row;
@@ -78,12 +82,12 @@ export class Map {
         var height = this.tiles.length;
         var longer = Math.max(width, height);
 
-        var xOffset = xOffset = 32 * (longer - 1);
+        var xOffset = 32 * (longer - 1);
 
         return [xOffset, 0];
     }
 
-    tileToScreen(x, y) {
+    tileToScreen(x:number, y:number) {
         var sx = x * TILE_SCREEN_WIDTH / 2;
         var sy = x * TILE_SCREEN_HEIGHT / 2;
 
